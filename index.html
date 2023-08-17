@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do List</title>
+</head>
+
+<body>
+    <h1>My To-Do List</h1>
+    <form action="/create" method="post">
+        <input type="text" name="title" placeholder="Task title">
+        <input type="text" name="description" placeholder="Task description">
+        <button type="submit">Add Task</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <input type="checkbox" onclick="this.form.submit()" {% if task.completed %}checked{% endif %}>
+            <span class="{% if task.completed %}line-through{% endif %}" >{{ task.title }}</span>
+            <form action="/delete/{{ task.id }}" method="post" class="inline-form">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
